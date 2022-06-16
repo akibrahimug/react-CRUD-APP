@@ -3,117 +3,75 @@
 // Renders a "Cancel" button that redirects to '/'
 
 
-import React, {Component} from "react";
-import {Link} from "react-router-dom";
+import React, {useState, useContext} from "react";
+import {Link, useNavigate} from "react-router-dom";
 import Form from './Form'
+import {Context} from '../Context'
 
-export default class UserSignIn extends Component{
-    state = {
-        emailAddress: '',
-        password: '',
-        errors: [],
-    }
-
-    render() {
-        const {emailAddress, password, errors} = this.state;
-        
-        return (
-            <div className="bounds">
-                <div className="grid-33 centered signin">
-                <h1>Sign In</h1>
-                <Form
-                    cancel = {this.cancel}
-                    errors = {errors}
-                    submit = {this.submit}
-                    submitButtonText = "Sign In"
-                    elements={() => (
-                        <>
-                            <input
-                            id = "emailAddress"
-                            name = "emailAddress"
-                            type = "email"
-                            value = {emailAddress}
-                            onChange = {this.change}
-                            placeholder = "Email Address" />
-                            
-                            <input
-                            id = 'password'
-                            name = 'password'
-                            type = 'password'
-                            value = {password}
-                            onChange = {this.change}
-                            placeholder = 'Password' />
-                        </>
-                    )} />
-                    <p>
-                        Don't have a user account? <Link to="/signup">Sign Up</Link>
-                    </p>
-                    </div>
-            </div>
-        )
-    }
-
-    change = (e) => {
+function UserSignIn(){
+    const {user, setUser} = useState({emailAddress: '', password: ''})
+    const {errors, setErrors} = useState([])
+    const {signIn} = useContext(Context)
+    const navigate = useNavigate()
+    const change = (e) => {
         const name = e.target.name;
         const value = e.target.value;
 
-        this.setState(() => {
-            return {
-                [name]: value,
-            }
-        })
+        setUser(user => ({...user, [name]: value}))
     }
 
-    submit = () => {
-        const {context} = this.props;
-        const {emailAddress, password} = this.state;
-        if(!emailAddress){
-            this.setState(() => {
-                return {
-                    errors: [
-                        'Email Address is required.'
-                    ]
-                }
-            })
-        }else{
-            this.setState({
-                emailAddress: emailAddress
-            })
-
-        }
-        if(!password){
-            this.setState(() => {
-                return {
-                    errors: [
-                        'Password is required.'
-                    ]
-                }
-            })
-        }else{
-            this.setState({
-                password: password
-            })
-        }
-        context.actions.signIn(emailAddress, password)
-        .then(User => {
-            if(User === null){
-                this.setState(() => {
-                    return {
-                        errors: ['Invalid email or password']
-                    }
-                })
+    const submit = () => {
+        const {emailAddress, password} = user
+        signIn(emailAddress, password).then((user) => {
+            if(user === null){
+                setErrors(['Invalid password or Email'])
             }else{
-                this.props.history.push('/');
-                console.log('User signed in');
+                navigate('/')
             }
         })
         .catch(err => {
             console.log(err);
-            this.props.history.push('/error');
+            navigate('/error');
         })
     }
 
-    cancel = () => {
-        this.props.history.push('/');
+    const cancel = () => {
+        navigate('/');
     }
+    return (
+        <div className="bounds">
+            <div className="grid-33 centered signin">
+            <h1>Sign In</h1>
+            <Form
+                cancel = {cancel}
+                errors = {errors}
+                submit = {submit}
+                submitButtonText = "Sign In"
+                elements={() => (
+                    <>
+                        <input
+                        id = "emailAddress"
+                        name = "emailAddress"
+                        type = "email"
+                        value = {user.emailAddress}
+                        onChange = {change}
+                        placeholder = "Email Address" />
+                        
+                        <input
+                        id = 'password'
+                        name = 'password'
+                        type = 'password'
+                        value = {user.password}
+                        onChange = {change}
+                        placeholder = 'Password' />
+                    </>
+                )} />
+                <p>
+                    Don't have a user account? <Link to="/signup">Sign Up</Link>
+                </p>
+                </div>
+        </div>
+    )
 }
+
+export default UserSignIn;

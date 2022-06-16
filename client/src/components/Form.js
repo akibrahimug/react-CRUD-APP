@@ -1,14 +1,16 @@
 import React from "react";
 
-function Form({cancel, errors, submit, submitButtonText, elements}) {
-    function handleSubmit(event){
-        event.preventDefault();
+export default function Form ({cancel, errors, submit, submitButtonText, elements}){
+    
+   function handleSubmit(e){
+       e.preventDefault()
         submit();
     }
-    function handleCancel(e){
+   function handleCancel(e){
         e.preventDefault();
         cancel();
     }
+
     return (
         <div>
             <ErrorDisplay errors = {errors} />
@@ -18,13 +20,14 @@ function Form({cancel, errors, submit, submitButtonText, elements}) {
                     <button type="submit">
                         {submitButtonText}
                     </button>
+                    <button onClick = {handleCancel}>Cancel</button>
                 </div>
             </form>
         </div>
     )
 }
 
-function ErrorDisplay({errors}) {
+function ErrorDisplay({errors}){
     let errorsDisplay = null;
 
     if(errors.length){
@@ -40,4 +43,4 @@ function ErrorDisplay({errors}) {
     return errorsDisplay;
 }
 
-export default Form;
+

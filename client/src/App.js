@@ -4,27 +4,28 @@ import {
   Route,
   Routes} from 'react-router-dom';
 
-import withContext from "./Context";
 import UserSignUp from "./components/UserSignUp";
 import UserSignIn from "./components/UserSignIn";
 import Header from "./components/Header";
+import Courses from "./components/Courses";
+import './styles/global.css'
+import './styles/reset.css'
 
+function App (){
+  return (
+    <Router>
+      <div>
+        <Header />
+        <Routes>
+          <Route path="/signup" element={<UserSignUp />} />
+          <Route path="/signin" element={<UserSignIn />} />
+          <Route path="/" element={<Courses />} />
+        </Routes>
+      </div>
+    </Router>
+  )
+  
+}
 
-const UserSignUpWithContext = withContext(UserSignUp);
-const UserSignInWithContext = withContext(UserSignIn);
-const HeaderWithContext = withContext(Header);
-
-
-// eslint-disable-next-line import/no-anonymous-default-export
-export default () => (
-  <Router>
-    <div>
-      <HeaderWithContext />
-      <Routes>
-        <Route path="/signup" element={<UserSignUpWithContext />} />
-        <Route path="/signin" element={<UserSignInWithContext />} />
-      </Routes>
-    </div>
-  </Router>
-) 
+export default App;
 

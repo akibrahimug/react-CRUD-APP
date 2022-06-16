@@ -14,7 +14,7 @@ export default class Data {
         }
 
         if(requiresAuth){
-            const encodedCredentials = btoa(`${credentials.emailAddress} : ${credentials.password}`);
+            const encodedCredentials = btoa(`${credentials.emailAddress}:${credentials.password}`);
             options.headers['Authorization'] = `Basic ${encodedCredentials}`;
         }
         return fetch(url, options)
@@ -22,7 +22,7 @@ export default class Data {
 
     async getUser(emailAddress, password){
         const response = await this.api('/users', 'GET', null, true, {emailAddress, password});
-        console.log(response);
+
         if(response.status === 200){
             return response.json().then(data => data);
         }else if(response.status === 401 || response.status === 400 || response.status === 500){
