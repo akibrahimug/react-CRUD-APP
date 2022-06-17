@@ -12,13 +12,13 @@ import {Context} from '../Context'
 
 function UserSignUp(){
     const {data, signIn} = useContext(Context)
-    const {user, setUser} = useState({
+    const [user, setUser] = useState({
         firstName: "",
         lastName: "",
         emailAddress: "",
         password: "",
     })
-    const {errors, setErrors} = useState([])
+    const [errors, setErrors] = useState([])
     const navigate = useNavigate();
 
     const change = (e) => {
@@ -46,9 +46,8 @@ function UserSignUp(){
         navigate('/');
     }
     return (
-        <div>
-            <div>
-                <h1>Sign Up</h1>
+        <div className="form--centered">
+                <h2>Sign Up</h2>
                 <Form 
                 cancel = {cancel}
                 errors = {errors}
@@ -56,44 +55,43 @@ function UserSignUp(){
                 submitButtonText = "Sign Up"
                 elements = {() => (
                     <>
+                        <label htmlFor="firstName">First Name</label>
                         <input
                         id = "firstName"
                         name = "firstName"
                         type = "text"
                         value = {user.firstName}
-                        onChange = {change}
-                        placeholder = "First Name" />
+                        onChange = {change}/>
 
+                        <label htmlFor="lastName">Last Name</label>
                         <input
                         id = "lastName"
                         name = "lastName"
                         type = "text"
                         value = {user.lastName}
-                        onChange = {change}
-                        placeholder = "Last Name" />
+                        onChange = {change}/>
 
+                        <label htmlFor="emailAddress">Email Address</label>
                         <input
                         id = "emailAddress"
                         name = "emailAddress"
                         type = "email"
                         value = {user.emailAddress}
-                        onChange = {change}
-                        placeholder = "Email Address" />
+                        onChange = {change} />
                         
+                        <label htmlFor="password">Password</label>
                         <input
                         id = "password"
                         name = "password"
                         type = "password"
                         value = {user.password}
-                        onChange = {change}
-                        placeholder = "Password" />
+                        onChange = {change} />
                         
                     </>
                 )} />
                 <p>
                     Already have an account? <Link to = "/signin">Sign In</Link>
                 </p>
-            </div>
         </div>
     )
 }

@@ -9,8 +9,8 @@ import Form from './Form'
 import {Context} from '../Context'
 
 function UserSignIn(){
-    const {user, setUser} = useState({emailAddress: '', password: ''})
-    const {errors, setErrors} = useState([])
+    const [user, setUser] = useState({emailAddress: '', password: ''})
+    const [errors, setErrors] = useState([])
     const {signIn} = useContext(Context)
     const navigate = useNavigate()
     const change = (e) => {
@@ -39,9 +39,8 @@ function UserSignIn(){
         navigate('/');
     }
     return (
-        <div className="bounds">
-            <div className="grid-33 centered signin">
-            <h1>Sign In</h1>
+        <div className="form--centered">
+            <h2>Sign In</h2>
             <Form
                 cancel = {cancel}
                 errors = {errors}
@@ -49,28 +48,27 @@ function UserSignIn(){
                 submitButtonText = "Sign In"
                 elements={() => (
                     <>
+                        <label htmlFor="emailAddress">Email Address</label>
                         <input
                         id = "emailAddress"
                         name = "emailAddress"
                         type = "email"
                         value = {user.emailAddress}
-                        onChange = {change}
-                        placeholder = "Email Address" />
+                        onChange = {change} />
                         
+                        <label htmlFor="password">Password</label>
                         <input
                         id = 'password'
                         name = 'password'
                         type = 'password'
                         value = {user.password}
-                        onChange = {change}
-                        placeholder = 'Password' />
+                        onChange = {change} />
                     </>
                 )} />
                 <p>
                     Don't have a user account? <Link to="/signup">Sign Up</Link>
                 </p>
                 </div>
-        </div>
     )
 }
 

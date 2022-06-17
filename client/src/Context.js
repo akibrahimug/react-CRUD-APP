@@ -5,12 +5,10 @@ import Cookies from 'js-cookie';
 export const Context = React.createContext()
 
 export const Provider = (props) => {
-    const {authenticatedUser, setAuthenticatedUser} = useState(null);
+    const [authenticatedUser, setAuthenticatedUser] = useState(null);
     useEffect(() => {
         if(authenticatedUser){
             Cookies.set('userCookies', JSON.stringify(authenticatedUser), {expires: 1})
-        }else{
-            console.log('No authenticated User')
         }
     }, [authenticatedUser]);
 

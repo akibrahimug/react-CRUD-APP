@@ -44,5 +44,43 @@ export default class Data {
             throw new Error('Something went wrong');
         }
     }
+
+    async getCourses(){
+        const response = await this.api('/courses')
+        if(response.status === 200){
+            return response.json().then(data => data);
+        }else{
+            throw new Error(`Something went wrong: ${response.status}`);
+        }
+    }
+
+    async courseDetail(id){
+        const response = await this.api(`/courses/${id}`);
+        if(response.status === 200){
+            return response.json().then(data => data);
+        }else{
+            throw new Error(`Something went wrong: ${response.status}`);
+        }
+    }
+
+    async deleteCourse(id, user){
+        const {emailAddress, password} = user;
+        const response = await this.api(`/courses/${id}`, 'DELETE', {}, true, {emailAddress, password});
+        if(response.status === 204){
+            return [];
+        }else{
+            throw new Error(`Something went wrong: ${response.status}`);
+        }
+    }
+
+    async updateCourse(course, user){
+        const {emailAddress, password} = user;
+        const response = await this.api(`/courses/${course.id}`, 'PUT', course, true, {emailAddress, password});
+        if(response.status === 204){
+            return [];
+        }else{
+            throw new Error(`Something went wrong: ${response.status}`);
+        }
+    }
 }
 

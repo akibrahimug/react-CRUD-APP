@@ -17,10 +17,10 @@ export default function Form ({cancel, errors, submit, submitButtonText, element
             <form onSubmit = {handleSubmit}>
                 {elements()}
                 <div>
-                    <button type="submit">
+                    <button type="submit" className="button">
                         {submitButtonText}
                     </button>
-                    <button onClick = {handleCancel}>Cancel</button>
+                    <button onClick = {handleCancel} className="button button-secondary">Cancel</button>
                 </div>
             </form>
         </div>
@@ -32,8 +32,8 @@ function ErrorDisplay({errors}){
 
     if(errors.length){
         errorsDisplay =(
-            <div>
-                <h2>Validation errors</h2>
+            <div className="validation--errors">
+                <h3>Validation errors</h3>
                 <ul>
                     {errors.map((error, index) => <li key = {index}>{error}</li>)}
                 </ul>

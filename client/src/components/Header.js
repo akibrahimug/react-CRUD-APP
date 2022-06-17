@@ -5,23 +5,25 @@ import { Context } from "../Context";
 function Header(){
     const {authenticatedUser} = useContext(Context)
     return(
-        <div className="header">
-            <div>
-                <h1>Courses</h1>
+        <header>
+            <div className="wrap header--flex">
+                <h1 className="header--logo"><Link to='/'>Courses</Link></h1>
                 <nav>
+                    <ul className="header--signedout"> 
                     {authenticatedUser ? 
                     <>
                         <span>Welcome, {authenticatedUser.firstName}!</span>
-                        <Link to="/signout">Sign Out</Link>
+                        <li><Link to="/signout">Sign Out</Link></li>
                     </>
                     :
                     <>
-                        <Link to="/signup">Sign Up</Link>
-                        <Link to="/signin">Sign In</Link>
+                        <li><Link to="/signup">Sign Up</Link></li>
+                        <li className="header--signedin"><Link to="/signin">Sign In</Link></li>
                     </>}
+                    </ul>
                 </nav>
             </div>
-        </div>
+        </header>
     )
 }
 

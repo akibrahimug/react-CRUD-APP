@@ -8,8 +8,8 @@ import UserSignUp from "./components/UserSignUp";
 import UserSignIn from "./components/UserSignIn";
 import Header from "./components/Header";
 import Courses from "./components/Courses";
-import './styles/global.css'
-import './styles/reset.css'
+import UserSignOut from "./components/UserSignOut";
+import CourseDetail from "./components/CourseDetail";
 
 function App (){
   return (
@@ -17,9 +17,11 @@ function App (){
       <div>
         <Header />
         <Routes>
+          <Route path="/" element={<Courses />} />
           <Route path="/signup" element={<UserSignUp />} />
           <Route path="/signin" element={<UserSignIn />} />
-          <Route path="/" element={<Courses />} />
+          <Route path="/signout" element={<UserSignOut />} />
+          <Route path="/courses/:id" element={<CourseDetail />} />
         </Routes>
       </div>
     </Router>
