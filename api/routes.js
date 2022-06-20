@@ -69,9 +69,7 @@ router.get('/courses/:id', asyncHandler(async(req,res) => {
             }]
         })
         if(course){
-            res.status(200).json({
-                Course: course
-            })
+            res.status(200).json(course)
         }else{
             res.status(404).json({"Message": "Sorry Course Not Found"})
         }
@@ -105,7 +103,7 @@ router.put('/courses/:id', userAuthentication, asyncHandler(async(req,res) => {
         if(course.userId === user.id){
             const updatedCourse = await course.update(req.body)
             res.status(204).json({
-                UpdatedCourse: updatedCourse
+                updatedCourse
             })
         }else{
             res.status(403).json({"Message": "Cannot Update a course you didnt create"})

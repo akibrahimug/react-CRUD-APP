@@ -11,6 +11,7 @@ function CourseDetail(){
     const [course, setCourse] = useState({});
     const {id} = useParams();
     const [isEditing, setIsEditing] = useState(false);
+    const [user, setUser] = useState('');
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -19,11 +20,14 @@ function CourseDetail(){
         .catch(err => console.log(err))
     }, []);
 
+    
     useEffect(() => {
+         setUser(course.User.firstName + ' ' + course.User.lastName);
         if(course && authenticatedUser && course.userId === authenticatedUser.id){
             setIsEditing(true);
         }else{
             setIsEditing(false);
+            console.log(course.User.firstName)
         }
     }, [course, authenticatedUser]);
 
@@ -40,8 +44,8 @@ function CourseDetail(){
         .catch(err => console.log(err))
     }
 
-    const updateCourse = () => navigate('update');
-    console.log(course.title);
+    const updateCourse = () => navigate(`/courses/update/${course.id}`);
+    console.log(user)
     return (
         <>
         <div className='actions--bar'>
@@ -58,12 +62,20 @@ function CourseDetail(){
         </div>
         <div className='wrap'>
             <h2 className='course--detail--label'>Course Detail</h2>
-            <form>
+            <form >
                 <div className='main--flex'>
                     <div>
                         <h3 className='course--detail--title'>Course</h3>
-                        <h4 className='course--name'>{course.title}</h4>
-                        <h4 className='course--name'>{course.description}</h4> 
+                        <p className='course--name'>{course.title}</p>
+                        <p>By {user}</p>
+
+                        <p>{course.description}</p>
+                    </div>
+                    <div>
+                        <h3 className='course--detail--title'>Estimated Time</h3>
+                        <p>{course.estimatedTime}</p>
+                        <h3 className='course--detail--title'>Materials Needed</h3>
+                        <span className='course--detail--list'>{course.materialsNeeded}</span>
                     </div>
                 </div>
             </form>

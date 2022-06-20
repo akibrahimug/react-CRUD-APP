@@ -22,9 +22,9 @@ function UserSignIn(){
 
     const submit = () => {
         const {emailAddress, password} = user
-        signIn(emailAddress, password).then((user) => {
-            if(user === null){
-                setErrors(['Invalid password or Email'])
+        signIn(emailAddress, password).then(() => {
+            if(emailAddress === '' || password === ''){
+                setErrors(['Invalid password or Email']) 
             }else{
                 navigate('/')
             }
