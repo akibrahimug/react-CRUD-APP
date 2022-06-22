@@ -29,6 +29,8 @@ function UserSignIn(){
             }else{
                 if(location.state?.from){
                     navigate(location.state.from)
+                }else{
+                    navigate('/')
                 }
             }
         })
