@@ -11,9 +11,12 @@ import Courses from "./components/Courses";
 import UserSignOut from "./components/UserSignOut";
 import CourseDetail from "./components/CourseDetail";
 import CreateCourse from "./components/CreateCourse";
-import Authorised from "./components/Authorised";
-import Error from "./components/Error";
+import PrivateRoute from "./components/PrivateRoute";
+import Error from "./components/UnhandledError";
 import UpdateCourse from "./components/UpdateCourse";
+import Forbidden from "./components/Forbidden";
+import NotFound from "./components/NotFound";
+
 
 function App (){
   return (
@@ -26,13 +29,16 @@ function App (){
           <Route path="/signin" element={<UserSignIn />} />
           <Route path="/signout" element={<UserSignOut />} />
           <Route path="/courses/:id" element={<CourseDetail />} />
-          <Route path="/courses/create" element={<Authorised />}>
+          <Route path="/courses/create" element={<PrivateRoute />}>
             <Route index element={<CreateCourse />} />
           </Route>
-          <Route path="/courses/update/:id" element={<Authorised />}>
+          <Route path="/courses/:id/update" element={<PrivateRoute />}>
             <Route index element={<UpdateCourse />} />
           </Route>
           <Route path="/error" element={<Error />} />
+          <Route path="/forbidden" element={<Forbidden />} />
+          <Route path="/notfound" element={<NotFound />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
     </Router>

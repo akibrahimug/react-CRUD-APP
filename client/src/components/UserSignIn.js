@@ -4,7 +4,7 @@
 
 
 import React, {useState, useContext} from "react";
-import {Link, useNavigate} from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 import Form from './Form'
 import {Context} from '../Context'
 
@@ -13,6 +13,7 @@ function UserSignIn(){
     const [errors, setErrors] = useState([])
     const {signIn} = useContext(Context)
     const navigate = useNavigate()
+    const location = useLocation()
     const change = (e) => {
         const name = e.target.name;
         const value = e.target.value;
@@ -26,7 +27,9 @@ function UserSignIn(){
             if(emailAddress === '' || password === ''){
                 setErrors(['Invalid password or Email']) 
             }else{
-                navigate('/')
+                if(location.state?.from){
+                    navigate(location.state.from)
+                }
             }
         })
         .catch(err => {

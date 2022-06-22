@@ -5,7 +5,10 @@ import Cookies from 'js-cookie';
 export const Context = React.createContext()
 
 export const Provider = (props) => {
-    const [authenticatedUser, setAuthenticatedUser] = useState(null);
+    const [userCookies, setUserCookies] = useState(Cookies.get('userCookies'));
+    const [authenticatedUser, setAuthenticatedUser] = useState(userCookies ? JSON.parse(userCookies) : null);
+
+    // setup Cookies instance for authenticated user
     useEffect(() => {
         if(authenticatedUser){
             Cookies.set('userCookies', JSON.stringify(authenticatedUser), {expires: 1})
@@ -24,7 +27,7 @@ export const Provider = (props) => {
 
     const signOut = () => {
         setAuthenticatedUser(null)
-        Cookies.remove('authenticatedUser');
+        Cookies.remove('userCookies');
     }
 
     return(
