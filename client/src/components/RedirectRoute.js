@@ -23,9 +23,12 @@ function RedirectRoute() {
       .courseDetail(id)
       // If the response is there setCourse state
       //else navigate to not found
-      .then((res) => (res ? setCourse(res) : navigate("/notfound")))
+      .then((res) => setCourse(res))
       //   catch any errors from the api and console log them
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        navigate("/notfound");
+      });
   }, []);
 
   //   when the component mounts
@@ -43,11 +46,12 @@ function RedirectRoute() {
     } else {
       // else setLoading to true
       setLoading(true);
+      navigate("/forbidden");
     }
   }, [course, authenticatedUser]);
 
   return (
-    <>{Loading ? <></> : change ? <Outlet /> : <Navigate to="forbidden" />}</>
+    <>{Loading ? <></> : change ? <Outlet /> : <Navigate to="/forbidden" />}</>
   );
 }
 

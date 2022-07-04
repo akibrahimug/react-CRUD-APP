@@ -1,8 +1,5 @@
 import React from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import UserSignUp from "./components/UserSignUp";
 import UserSignIn from "./components/UserSignIn";
@@ -16,9 +13,9 @@ import Error from "./components/UnhandledError";
 import UpdateCourse from "./components/UpdateCourse";
 import Forbidden from "./components/Forbidden";
 import NotFound from "./components/NotFound";
+import RedirectRoute from "./components/RedirectRoute";
 
-
-function App (){
+function App() {
   return (
     <Router>
       <div>
@@ -32,7 +29,7 @@ function App (){
           <Route path="/courses/create" element={<PrivateRoute />}>
             <Route index element={<CreateCourse />} />
           </Route>
-          <Route path="/courses/:id/update" element={<PrivateRoute />}>
+          <Route path="/courses/:id/update" element={<RedirectRoute />}>
             <Route index element={<UpdateCourse />} />
           </Route>
           <Route path="/error" element={<Error />} />
@@ -42,9 +39,7 @@ function App (){
         </Routes>
       </div>
     </Router>
-  )
-  
+  );
 }
 
 export default App;
-
