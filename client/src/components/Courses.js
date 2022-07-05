@@ -21,7 +21,7 @@ function Courses() {
       .then((res) => setCourses(res))
       // catch any errors returned by the Rest Api
       .catch((err) => console.log(err));
-  }, []);
+  }, [data]);
 
   return (
     <div className="wrap main--grid">

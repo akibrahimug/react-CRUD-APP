@@ -38,7 +38,7 @@ function CourseDetail() {
         // navigate the user to the /notfound
         navigate("/notfound");
       });
-  }, []);
+  }, [data, id, navigate]);
 
   // as soon as the app mounts to the DOM
   useEffect(() => {

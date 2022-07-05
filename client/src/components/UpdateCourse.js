@@ -24,7 +24,7 @@ function UpdateCourse() {
       .then((course) => setCourse(course))
       // catch any errors thrown by the api and console log them
       .catch((err) => console.log(err));
-  }, []);
+  }, [data, id]);
 
   // create the change function
   const change = (e) => {

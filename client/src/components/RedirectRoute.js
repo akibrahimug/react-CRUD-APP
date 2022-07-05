@@ -29,7 +29,7 @@ function RedirectRoute() {
         console.log(err);
         navigate("/notfound");
       });
-  }, []);
+  }, [data, navigate, id]);
 
   //   when the component mounts
   useEffect(() => {
@@ -46,7 +46,6 @@ function RedirectRoute() {
     } else {
       // else setLoading to true
       setLoading(true);
-      navigate("/forbidden");
     }
   }, [course, authenticatedUser]);
 

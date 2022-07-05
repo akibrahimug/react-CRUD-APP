@@ -6,7 +6,7 @@ export const Context = React.createContext();
 
 export const Provider = (props) => {
   // create a userCookies instance in the state and set it to get the cookies
-  const [userCookies, setUserCookies] = useState(Cookies.get("userCookies"));
+  const [userCookies] = useState(Cookies.get("userCookies"));
   // create an authenticatedUser instance in state and set it to userCookies if there any
   // else set it to null
   const [authenticatedUser, setAuthenticatedUser] = useState(
