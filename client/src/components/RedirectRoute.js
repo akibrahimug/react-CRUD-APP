@@ -43,14 +43,17 @@ function RedirectRoute() {
           setChange(true)
         : // else setchange to false
           setChange(false);
+      // navigate("/forbidden");
     } else {
       // else setLoading to true
       setLoading(true);
     }
   }, [course, authenticatedUser]);
 
-  return (
+  return authenticatedUser ? (
     <>{Loading ? <></> : change ? <Outlet /> : <Navigate to="/forbidden" />}</>
+  ) : (
+    navigate("/forbidden")
   );
 }
 
